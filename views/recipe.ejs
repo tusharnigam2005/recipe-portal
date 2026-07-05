@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+<%- include('partials/navbar') %>
+
+<main>
+  <section class="recipe-hero container">
+    <p class="breadcrumb"><a href="/">Home</a> / <a href="/#recipes">Recipes</a> / <%= recipe.title %></p>
+
+    <div class="recipe-hero__grid">
+      <div class="recipe-hero__image">
+        <img src="<%= recipe.image %>" alt="<%= recipe.title %>" />
+      </div>
+
+      <div class="recipe-hero__info">
+        <span class="eyebrow"><%= recipe.category %> &middot; <%= recipe.country %></span>
+        <h1 class="recipe-hero__title"><%= recipe.title %></h1>
+        <p class="recipe-hero__desc"><%= recipe.description %></p>
+
+        <div class="meta-row">
+          <div class="meta-pill">⏱ <strong><%= recipe.cookTime %></strong></div>
+          <div class="meta-pill">📊 <strong><%= recipe.difficulty %></strong></div>
+          <div class="meta-pill">🌍 <strong><%= recipe.country %></strong></div>
+        </div>
+
+        <div class="rating-row">
+          <% for (let i = 1; i <= 5; i++) { %>
+            <span class="chili <%= i <= Math.round(recipe.rating) ? 'is-lit' : '' %>">🌶️</span>
+          <% } %>
+          <strong><%= recipe.rating %> / 5</strong>
+        </div>
+
+        <div class="tag-row">
+          <% recipe.tags.forEach(tag => { %>
+            <span class="tag">#<%= tag %></span>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="recipe-body">
+        <div class="recipe-body__main">
+          <div class="panel">
+            <h3>🧂 Ingredients</h3>
+            <ul class="ingredient-list">
+              <% recipe.ingredients.forEach(ing => { %>
+                <li><%= ing %></li>
+              <% }) %>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h3>👩‍🍳 Instructions</h3>
+            <ol class="steps">
+              <% recipe.instructions.forEach(step => { %>
+                <li><%= step %></li>
+              <% }) %>
+            </ol>
+          </div>
+        </div>
+
+        <div class="recipe-body__side">
+          <div class="panel">
+            <h3>🥗 Nutrition <small style="font-size:12px; color:var(--color-dark-soft); font-weight:400;">(per serving)</small></h3>
+            <div class="nutrition-grid">
+              <div class="nutrition-item">
+                <div class="nutrition-item__value"><%= recipe.nutrition.calories %></div>
+                <div class="nutrition-item__label">Calories</div>
+              </div>
+              <div class="nutrition-item">
+                <div class="nutrition-item__value"><%= recipe.nutrition.protein %>g</div>
+                <div class="nutrition-item__label">Protein</div>
+              </div>
+              <div class="nutrition-item">
+                <div class="nutrition-item__value"><%= recipe.nutrition.fat %>g</div>
+                <div class="nutrition-item__label">Fat</div>
+              </div>
+              <div class="nutrition-item">
+                <div class="nutrition-item__value"><%= recipe.nutrition.carbs %>g</div>
+                <div class="nutrition-item__label">Carbs</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>💡 Chef Tips</h3>
+            <div class="chef-tip">
+              <strong>Kitchen Note</strong>
+              <%= recipe.chefTip %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <% if (related.length) { %>
+        <div class="section-head" style="margin-top: 60px;">
+          <span class="eyebrow">More <%= recipe.category %></span>
+          <h2>Related Recipes</h2>
+        </div>
+        <div class="related-grid">
+          <% related.forEach(r => { %>
+            <a href="/recipe/<%= r.slug %>" class="related-card">
+              <img src="<%= r.image %>" alt="<%= r.title %>" />
+              <div class="related-card__body">
+                <h4><%= r.title %></h4>
+                <span><%= r.cookTime %> &middot; <%= r.difficulty %></span>
+              </div>
+            </a>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
+<script src="/js/main.js"></script>
+</body>
+</html>

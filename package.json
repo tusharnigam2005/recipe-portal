@@ -1,0 +1,20 @@
+{
+  "name": "recipeverse",
+  "version": "1.0.0",
+  "description": "RecipeVerse - A recipe discovery client app that securely pushes recipes to an external Search Console API for indexing.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.x"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+<%- include('partials/navbar') %>
+
+<main>
+  <section class="section about-hero container">
+    <span class="eyebrow">Our story</span>
+    <h1>Built for people who cook, and the systems that index them</h1>
+    <p>
+      RecipeVerse is a lightweight recipe client: a curated library of dishes on one side,
+      and a secure bridge to your Search Console indexing API on the other. No frameworks,
+      no bloat — just Node.js, Express and EJS doing exactly what's needed.
+    </p>
+
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card__icon">📖</div>
+        <h3>A real recipe library</h3>
+        <p>30 recipes across 8 cuisines, each with full ingredients, steps, nutrition and chef tips.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-card__icon">🔍</div>
+        <h3>Instant search & filters</h3>
+        <p>Live search and category filtering run entirely client-side for a snappy feel.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-card__icon">🔐</div>
+        <h3>Secure server-side push</h3>
+        <p>The browser never talks to your Search Console API directly — the backend does, with your token kept out of the client bundle.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">How it works</span>
+        <h2>From recipe to search index</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4>1. Recipes live in JSON</h4>
+          <p>Every dish is stored in <code>public/data/recipes.json</code> — easy to read, easy to version.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2. The Developer Console collects your credentials</h4>
+          <p>Paste your Search Console Endpoint and API Token — they're never hardcoded into the app.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>3. Express does the pushing</h4>
+          <p>The <code>/push</code> route loads the recipes, batches them, and calls your API using Axios with a Bearer token and a timeout.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>4. You watch it happen live</h4>
+          <p>A progress bar and console log stream back batch-by-batch, so you always know exactly what was indexed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
+<script src="/js/main.js"></script>
+</body>
+</html>

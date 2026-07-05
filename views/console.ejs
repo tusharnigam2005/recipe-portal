@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+<%- include('partials/navbar') %>
+
+<main>
+  <section class="section console-page container">
+    <div class="section-head">
+      <span class="eyebrow">Developer Console</span>
+      <h2>Push recipes to your Search Console</h2>
+      <p>
+        Your browser never calls the external API directly. This form sends your endpoint
+        and token to our own <code>/push</code> route, which does the outbound call server-side
+        using Axios, a request timeout, and batch-by-batch progress reporting.
+      </p>
+    </div>
+
+    <div class="console-grid">
+      <!-- Form -->
+      <div class="console-panel">
+        <h2>Configuration</h2>
+        <p>These credentials are sent once, used for this push, and never stored.</p>
+
+        <form id="pushForm">
+          <div class="form-group">
+            <label for="endpointInput">Search Console Endpoint</label>
+            <input
+              type="url"
+              id="endpointInput"
+              name="endpoint"
+              placeholder="https://searchconsole.example.com/api/index"
+              value="<%= defaultEndpoint %>"
+              required
+            />
+            <div class="form-hint">The full URL of your external Search Console indexing API.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="tokenInput">API Token</label>
+            <input
+              type="password"
+              id="tokenInput"
+              name="apiToken"
+              placeholder="sk_live_••••••••••••••••"
+              autocomplete="off"
+              required
+            />
+            <div class="form-hint">Sent as <code>Authorization: Bearer &lt;API_TOKEN&gt;</code>.</div>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--block" id="pushBtn">
+            🚀 Push All Recipes
+          </button>
+        </form>
+      </div>
+
+      <!-- Status -->
+      <div class="console-status">
+        <h3>Push Status</h3>
+        <p class="hint">Live progress from the server, streamed batch-by-batch.</p>
+
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-label">
+          <span id="progressText">0 / 0 Recipes Indexed</span>
+          <span id="progressPercent">0%</span>
+        </div>
+
+        <div class="console-log" id="consoleLog">
+          <div class="console-log__line console-log__line--muted">$ Waiting for a push to start...</div>
+        </div>
+
+        <div class="console-summary" id="consoleSummary" style="display: none;">
+          <div class="stat-box">
+            <strong id="summaryIndexed">0/0</strong>
+            <span>Indexed</span>
+          </div>
+          <div class="stat-box">
+            <strong id="summaryTotal">0</strong>
+            <span>Total Recipes</span>
+          </div>
+          <div class="stat-box">
+            <strong id="summaryTime">0s</strong>
+            <span>Time Taken</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
+<script src="/js/main.js"></script>
+<script src="/js/console.js"></script>
+</body>
+</html>
