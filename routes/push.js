@@ -79,23 +79,28 @@ router.post("/", async (req, res) => {
   for (let i = 0; i < batches.length; i++) {
     const batch = batches[i];
     try {
-      // eslint-disable-next-line no-await-in-loop
-      await axios.post(
-        endpointUrl.toString(),
-        {
-          source: "RecipeVerse",
-          batch: i + 1,
-          totalBatches: batches.length,
-          recipes: batch,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${apiToken}`,
+      // Send each recipe in the batch formatted to match BasketHunt API schema
+      for (const recipe of batch) {
+        await axios.post(
+          endpointUrl.toString(),
+          {
+            external_id: `recipe-${recipe.id}`,
+            title: recipe.title,
+            url: `https://recipe-portal.onrender.com/recipes/${recipe.slug || recipe.id}`,
+            summary: recipe.description || `${recipe.category} recipe from ${recipe.country}`,
+            body_text: `Category: ${recipe.category} | Difficulty: ${recipe.difficulty} | Cook Time: ${recipe.cookTime}\n\nIngredients:\n${(recipe.ingredients || []).join("\n")}\n\nInstructions:\n${(recipe.instructions || []).join("\n")}`,
+            content_type: "recipe",
+            author: "RecipeVerse"
           },
-          timeout: TIMEOUT_MS,
-        }
-      );
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${apiToken}`,
+            },
+            timeout: TIMEOUT_MS,
+          }
+        );
+      }
 
       indexed += batch.length;
 
