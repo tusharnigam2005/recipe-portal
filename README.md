@@ -73,5 +73,5 @@ See `.env.example`:
   the Developer Console form always takes priority
 - `PUSH_TIMEOUT_MS` — timeout for each outbound batch request
 
-## Deployed to Render
+## Deployed on Render
 https://recipe-portal-bo3p.onrender.com
