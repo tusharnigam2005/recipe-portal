@@ -73,10 +73,5 @@ See `.env.example`:
   the Developer Console form always takes priority
 - `PUSH_TIMEOUT_MS` — timeout for each outbound batch request
 
-## Deploying to Vercel
-
-This app is a standard Express server, so on Vercel you can deploy it as a Node.js
-server function (e.g. via `vercel.json` routing all requests to `server.js`, or by
-adapting `server.js` to export the `app` for a serverless handler). No URLs are
-hardcoded anywhere in the codebase — everything comes from `.env` or the Developer
-Console form at request time.
+## Deployed to Render
+https://recipe-portal-bo3p.onrender.com
